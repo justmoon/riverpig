@@ -30,8 +30,11 @@ class D {
 }
 new D
 
+log.info('test %s', 'replacement')
+
 // Using debug (not shown by default)
 log.debug('test')
+log.debug('test %s', 'replacement')
 
 // Another module using debug
 const myDebug = require('debug')('other')

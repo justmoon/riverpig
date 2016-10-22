@@ -21,7 +21,7 @@ export = (namespace: string, config0?: LoggerConfig): Logger => {
 
   debugLog.namespaceId = namespaceId
 
-  debug.formatArgs = function (message: string) {
+  debug.formatArgs = function (message: string, ...elements: any[]) {
     const callsite = getCallsite(this)
 
     if (typeof this.riverlogNamespaceId === 'undefined') {
@@ -35,7 +35,7 @@ export = (namespace: string, config0?: LoggerConfig): Logger => {
       namespaceId: this.riverlogNamespaceId,
       level: 'debug',
       timestamp: new Date(),
-      arguments: []
+      arguments: elements
     })]
   }
 
