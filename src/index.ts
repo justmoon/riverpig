@@ -1,35 +1,18 @@
 import { Logger } from './interfaces/logger'
 import { LogLevel } from './interfaces/logentry'
 import { getCallsite } from './blackmagic'
+import { LoggerConfig } from './interfaces/logger-config'
+import { getEnvConfig } from './config'
 
 import createFormatter = require('./formatters/standard')
-const formatter = createFormatter(process.env)
-
-const createLogFunction = (
-  level: LogLevel,
-  namespace: string,
-  namespaceId: number,
-  target: (message: any, ...elements: any[]) => void
-) => {
-  const logFn = (message: any, ...elements: any[]) => {
-    const callsite = getCallsite(logFn)
-    target(formatter({
-      message,
-      callsite,
-      namespace,
-      namespaceId,
-      level,
-      timestamp: new Date(),
-      arguments: elements
-    }))
-  }
-
-  return logFn
-}
 
 let nextNamespaceId = 0
-export = (namespace: string, targetLogger?: Logger | Console): Logger => {
-  const log = targetLogger || console
+export = (namespace: string, config0?: LoggerConfig): Logger => {
+  const config = Object.assign({}, getEnvConfig(), config0)
+
+  const formatter = createFormatter(config)
+
+  const log = config.parentLogger
 
   const namespaceId = nextNamespaceId++
 
@@ -54,6 +37,28 @@ export = (namespace: string, targetLogger?: Logger | Console): Logger => {
       timestamp: new Date(),
       arguments: []
     })]
+  }
+
+  const createLogFunction = (
+    level: LogLevel,
+    namespace: string,
+    namespaceId: number,
+    target: (message: any, ...elements: any[]) => void
+  ) => {
+    const logFn = (message: any, ...elements: any[]) => {
+      const callsite = getCallsite(logFn)
+      target(formatter({
+        message,
+        callsite,
+        namespace,
+        namespaceId,
+        level,
+        timestamp: new Date(),
+        arguments: elements
+      }))
+    }
+
+    return logFn
   }
 
   const namespacedLogger: Logger = {
