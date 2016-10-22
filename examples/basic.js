@@ -1,4 +1,4 @@
-const log = require('.')('scope')
+const log = require('..')('scope')
 
 class A {
   a () {
