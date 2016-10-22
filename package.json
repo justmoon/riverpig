@@ -2,8 +2,8 @@
   "name": "riverpig",
   "version": "0.0.0-semantic-release",
   "description": "Simple log driver for twelve-factor apps",
-  "main": "dist/index.js",
-  "typings": "dist/index",
+  "main": "dist/src/index.js",
+  "typings": "dist/src/index",
   "scripts": {
     "lint": "tslint \"src/**/*.ts\" \"test/*.spec.ts\"",
     "build": "rm -rf dist; tsc",
