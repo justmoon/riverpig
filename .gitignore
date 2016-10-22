@@ -3,3 +3,7 @@
 /.nyc_output/
 /coverage/
 /.vscode/
+
+/npm-debug.log*
+.lock-wscript
+/.tags*

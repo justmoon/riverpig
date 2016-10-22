@@ -1,6 +1,6 @@
 {
   "name": "riverpig",
-  "version": "0.0.0",
+  "version": "0.0.0-semantic-release",
   "description": "Simple log driver for twelve-factor apps",
   "main": "dist/index.js",
   "typings": "dist/index",
@@ -11,7 +11,9 @@
     "test:specs": "mocha",
     "precover": "rm -rf .nyc_output",
     "cover": "nyc --extension .ts --reporter=text-summary --reporter=html mocha",
-    "prepublish": "npm run build"
+    "prepublish": "npm run build",
+    "codecov": "codecov",
+    "semantic-release": "semantic-release pre && npm publish && semantic-release post"
   },
   "repository": {
     "type": "git",
@@ -28,7 +30,7 @@
     "debug"
   ],
   "author": "Stefan Thomas <justmoon@members.fsf.org>",
-  "license": "ISC",
+  "license": "Apache-2.0",
   "bugs": {
     "url": "https://github.com/justmoon/riverpig/issues"
   },
@@ -39,15 +41,32 @@
     "@types/node": "^6.0.41",
     "@types/sinon": "^1.16.31",
     "benchmark": "^2.1.1",
+    "codecov": "^1.0.1",
+    "condition-circle": "^1.5.0",
+    "cz-conventional-changelog": "^1.2.0",
+    "ghooks": "^1.3.2",
     "mocha": "^3.1.0",
     "nyc": "^8.3.0",
+    "semantic-release": "^4.3.5",
     "sinon": "^1.17.6",
     "ts-node": "^1.3.0",
     "tslint": "^3.15.1",
     "tslint-config-standard": "^1.3.0",
-    "typescript": "^2.0.3"
+    "typescript": "^2.0.3",
+    "validate-commit-msg": "^2.8.2"
   },
   "dependencies": {
     "chalk": "^1.1.3"
+  },
+  "config": {
+    "ghooks": {
+      "commit-msg": "validate-commit-msg"
+    },
+    "commitizen": {
+      "path": "./node_modules/cz-conventional-changelog"
+    }
+  },
+  "release": {
+    "verifyConditions": "condition-circle"
   }
 }
