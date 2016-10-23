@@ -15,6 +15,9 @@
     "codecov": "codecov",
     "semantic-release": "semantic-release pre && npm publish && semantic-release post"
   },
+  "engines": {
+    "node": ">=6.0.0"
+  },
   "repository": {
     "type": "git",
     "url": "git+https://github.com/justmoon/riverpig.git"
