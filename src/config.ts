@@ -1,4 +1,5 @@
 import { CompleteLoggerConfig, LineinfoSetting } from './interfaces/logger-config'
+import { format } from 'util'
 
 const lineInfoMap = {
   '1': LineinfoSetting.Smart,
@@ -13,6 +14,7 @@ export const getEnvConfig = () : CompleteLoggerConfig => {
   const lineInfo = lineInfoMap[process.env.RIVERPIG_LINEINFO] || LineinfoSetting.None
   return {
     lineInfo,
-    parentLogger: console
+    stream: process.stdout,
+    format
   }
 }

@@ -1,4 +1,4 @@
-import { CallSite } from './callsite'
+import { CallSite } from './call-site'
 
 export type LogLevel = 'debug' | 'info' | 'warn' | 'error'
 

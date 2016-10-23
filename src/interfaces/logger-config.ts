@@ -1,5 +1,3 @@
-import { Logger } from './logger'
-
 export enum LineinfoSetting {
   None = 0,
   Smart = 1,
@@ -10,10 +8,12 @@ export enum LineinfoSetting {
 
 export interface LoggerConfig {
   lineInfo?: LineinfoSetting,
-  parentLogger?: Logger | Console
+  stream?: NodeJS.WritableStream,
+  format?: (format: any, ...param: any[]) => string
 }
 
 export interface CompleteLoggerConfig {
   lineInfo: LineinfoSetting,
-  parentLogger: Logger | Console
+  stream: NodeJS.WritableStream,
+  format: (format: any, ...param: any[]) => string
 }

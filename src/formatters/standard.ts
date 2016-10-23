@@ -1,8 +1,8 @@
 import chalk = require('chalk')
 import path = require('path')
 import { format } from 'util'
-import { LogEntry } from '../interfaces/logentry'
-import { CallSite } from '../interfaces/callsite'
+import { LogEntry } from '../interfaces/log-entry'
+import { CallSite } from '../interfaces/call-site'
 import { CompleteLoggerConfig, LineinfoSetting } from '../interfaces/logger-config'
 
 const levelColors = {
@@ -62,7 +62,7 @@ function callsiteColor (name: string, id: number) {
   return chalk[callsiteColors[id % callsiteColors.length]](name)
 }
 
-export = (config: CompleteLoggerConfig) => {
+export default (config: CompleteLoggerConfig) => {
   const getLocationInfo = createLocationInfoLogger(config)
 
   return (entry: LogEntry): string => {

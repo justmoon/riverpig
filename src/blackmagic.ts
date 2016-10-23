@@ -4,7 +4,7 @@ declare global {
   }
 }
 
-import { CallSite } from './interfaces/callsite'
+import { CallSite } from './interfaces/call-site'
 
 export function getCallsite (belowFunction: Function): CallSite {
   const oldLimit = Error.stackTraceLimit
