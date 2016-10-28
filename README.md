@@ -13,6 +13,10 @@
 
 [![Picture of log drivers](docs/assets/banner.jpg)](https://en.wikipedia.org/wiki/Lumberjack#Names)
 
+# Why?
+
+We wanted a simple logger that logs to stdout and works well with [debug](https://github.com/visionmedia/debug).
+
 # Features
 
 * Integrates with [debug](https://github.com/visionmedia/debug)
