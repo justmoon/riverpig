@@ -10,4 +10,4 @@ deployment:
   production:
     branch: master
     commands:
-      - npm run semantic-release
+      - npm run semantic-release || true
