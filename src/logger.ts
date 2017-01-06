@@ -33,26 +33,36 @@ export class Logger {
 
     debug.log = this.write.bind(this)
     debug.formatArgs = function (message: string, ...elements: any[]) {
-      if (Array.isArray(message)) {
-        message[0] = debug.formatArgs.apply(this, message)[0]
-        return
-      }
-
       const callsite = getCallsite(this)
 
       if (typeof this.riverpigNamespaceId === 'undefined') {
         this.riverpigNamespaceId = nextNamespaceId++
       }
 
-      return [formatter({
-        message,
-        callsite,
-        namespace: this.namespace,
-        namespaceId: this.riverpigNamespaceId,
-        level: 'debug',
-        timestamp: new Date(),
-        arguments: elements
-      })]
+      if (Array.isArray(message)) {
+        // debug module versions >= 2.4.0
+        message.splice(0, message.length, formatter({
+          message: message[0] as string,
+          callsite,
+          namespace: this.namespace,
+          namespaceId: this.riverpigNamespaceId,
+          level: 'debug',
+          timestamp: new Date(),
+          arguments: (message as Array<any>).slice(1)
+        }))
+        return
+      } else {
+        // debug module versions <= 2.3.3
+        return [formatter({
+          message,
+          callsite,
+          namespace: this.namespace,
+          namespaceId: this.riverpigNamespaceId,
+          level: 'debug',
+          timestamp: new Date(),
+          arguments: elements
+        })]
+      }
     }
 
     const createLogFunction = (
