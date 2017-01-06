@@ -29,21 +29,26 @@ export class Logger {
     const debug = require('debug')
     const debugLog = debug(namespace)
 
-    debugLog.namespaceId = namespaceId
+    debugLog.riverpigNamespaceId = namespaceId
 
     debug.log = this.write.bind(this)
     debug.formatArgs = function (message: string, ...elements: any[]) {
+      if (Array.isArray(message)) {
+        message[0] = debug.formatArgs.apply(this, message)[0]
+        return
+      }
+
       const callsite = getCallsite(this)
 
-      if (typeof this.riverlogNamespaceId === 'undefined') {
-        this.riverlogNamespaceId = nextNamespaceId++
+      if (typeof this.riverpigNamespaceId === 'undefined') {
+        this.riverpigNamespaceId = nextNamespaceId++
       }
 
       return [formatter({
         message,
         callsite,
         namespace: this.namespace,
-        namespaceId: this.riverlogNamespaceId,
+        namespaceId: this.riverpigNamespaceId,
         level: 'debug',
         timestamp: new Date(),
         arguments: elements
