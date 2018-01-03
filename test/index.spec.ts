@@ -4,9 +4,9 @@ import through = require('through')
 import riverpig = require('../src')
 
 describe('riverpig', function () {
-    it('should namespace a logger', function () {
+  it('should namespace a logger', function () {
     const fakeLogMethod = sinon.spy()
-    const fakeClock = sinon.useFakeTimers('Date')
+    const fakeClock = sinon.useFakeTimers({ toFake: ['Date'] })
 
     const namespacedLogger = riverpig('test', { stream: through(fakeLogMethod) })
 
