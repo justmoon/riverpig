@@ -1,9 +1,3 @@
-declare global {
-  interface ErrorConstructor {
-    prepareStackTrace: any
-  }
-}
-
 import { CallSite } from './interfaces/call-site'
 
 export function getCallsite (belowFunction: Function): CallSite {

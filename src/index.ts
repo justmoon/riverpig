@@ -1,6 +1,13 @@
-import { Logger } from './logger'
-import { LoggerConfig } from './interfaces/logger-config'
+import { Logger, Logger as Logger_ } from './logger'
+import { LoggerConfig, LoggerConfig as LoggerConfig_ } from './interfaces/logger-config'
 
-export = (namespace: string, config0?: LoggerConfig): Logger => {
+const createLogger = (namespace: string, config0?: LoggerConfig): Logger => {
   return new Logger(namespace, config0)
+}
+
+export = createLogger
+
+declare namespace createLogger {
+  export type Logger = Logger_
+  export type LoggerConfig = LoggerConfig_
 }
