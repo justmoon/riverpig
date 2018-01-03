@@ -1,12 +1,12 @@
 import sinon = require('sinon')
-import chalk = require('chalk')
+import chalk from 'chalk'
 import through = require('through')
 import riverpig = require('../src')
 
 describe('riverpig', function () {
   it('should namespace a logger', function () {
     const fakeLogMethod = sinon.spy()
-    const fakeClock = sinon.useFakeTimers({ toFake: ['Date'] })
+    const fakeClock = sinon.useFakeTimers({ toFake: ['Date'] } as any)
 
     const namespacedLogger = riverpig('test', { stream: through(fakeLogMethod) })
 

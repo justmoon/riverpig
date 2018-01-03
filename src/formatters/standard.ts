@@ -1,4 +1,4 @@
-import chalk = require('chalk')
+import chalk from 'chalk'
 import path = require('path')
 import { format } from 'util'
 import { LogEntry } from '../interfaces/log-entry'

@@ -10,8 +10,8 @@ const lineInfoMap = {
   'short': LineinfoSetting.Short
 }
 
-export const getEnvConfig = () : CompleteLoggerConfig => {
-  const lineInfo = lineInfoMap[process.env.RIVERPIG_LINEINFO] || LineinfoSetting.None
+export const getEnvConfig = (): CompleteLoggerConfig => {
+  const lineInfo = lineInfoMap[process.env.RIVERPIG_LINEINFO || ''] || LineinfoSetting.None
   return {
     lineInfo,
     stream: process.stdout,
