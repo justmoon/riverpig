@@ -1,6 +1,6 @@
 import { LogLevel } from './interfaces/log-entry'
 import { getCallsite } from './blackmagic'
-import { LoggerConfig } from './interfaces/logger-config'
+import { LoggerConfig, LineinfoSetting } from './interfaces/logger-config'
 import { LogMethod } from './interfaces/log-method'
 import { getEnvConfig } from './config'
 import createFormatter from './formatters/standard'
@@ -28,12 +28,13 @@ export class Logger {
 
     const debug = require('debug')
     const debugLog = debug(namespace)
+    const shouldGetCallsite = config.lineInfo !== LineinfoSetting.None
 
     debugLog.riverpigNamespaceId = namespaceId
 
     debug.log = this.write.bind(this)
     debug.formatArgs = function (message: string, ...elements: any[]) {
-      const callsite = getCallsite(this)
+      const callsite = shouldGetCallsite ? getCallsite(this) : undefined
 
       if (typeof this.riverpigNamespaceId === 'undefined') {
         this.riverpigNamespaceId = nextNamespaceId++
@@ -71,7 +72,7 @@ export class Logger {
       namespaceId: number
     ) => {
       const logFn = (message: any, ...elements: any[]) => {
-        const callsite = getCallsite(logFn)
+        const callsite = shouldGetCallsite ? getCallsite(logFn) : undefined
         this.write(formatter({
           message,
           callsite,
